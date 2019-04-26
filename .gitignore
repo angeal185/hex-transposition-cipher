@@ -1,0 +1,7 @@
+# Dependency directories
+node_modules/
+
+# Bower dependency directory (https://bower.io/)
+bower_components
+
+package.lock.json
