@@ -181,7 +181,7 @@ function hex2str(hex) {
 $(document).ready(function() {
     // test keygen
     function test(){
-      let obj = keyGen();
+      let obj = keyGenSync();
       $('#key').text(JSON.stringify(obj, 0, 2));
 
       // test shuffle hex
