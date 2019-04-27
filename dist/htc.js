@@ -1,4 +1,11 @@
 
+const subKey = {
+  '0':'8','1':'3','2':'2','3':'c',
+  '4':'a','5':'6','6':'4','7':'5',
+  '8':'e','9':'f','f':'d','e':'b',
+  'd':'0','c':'7','b':'1','a':'9'
+};
+
 function validHex(str){
   let regExp = /^[A-Fa-f0-9]*$/;
   return (typeof str === 'string' && regExp.test(str));
@@ -72,24 +79,31 @@ function subSync(text, obj, config) {
   }
 };
 
-function keyGen(obj){
+function keyGenSync(){
   try {
-    if(!obj){
-      obj = {
-        '0':'8','1':'3','2':'2','3':'c',
-        '4':'a','5':'6','6':'4','7':'5',
-        '8':'e','9':'f','f':'d','e':'b',
-        'd':'0','c':'7','b':'1','a':'9'
-      };
-    }
-    const x = _.shuffle(_.values(obj));
+    const x = _.shuffle(_.values(subKey));
     let v = 0,
     cc = {};
-    _.forIn(obj, function(i,e) {
+    _.forIn(subKey, function(i,e) {
       cc[i] = x[v];
       v++;
     })
     return cc;
+  } catch (err) {
+    if(err){return console.log(err)}
+  }
+}
+
+function keyGen(cb){
+  try {
+    const x = _.shuffle(_.values(subKey));
+    let v = 0,
+    cc = {};
+    _.forIn(subKey, function(i,e) {
+      cc[i] = x[v];
+      v++;
+    })
+    cb(cc);
   } catch (err) {
     if(err){return console.log(err)}
   }
