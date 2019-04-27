@@ -128,6 +128,8 @@ function hex2str(hex) {
     inStr: 'base string',
     inHex: 'encrypted hex',
     outHex: 'decrypted hex',
+    inHexRev: 'encrypted hex reversed',
+    outHexRev: 'decrypted hex reversed',
     outStr: 'decrypted string'
   }
 
