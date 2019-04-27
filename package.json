@@ -1,8 +1,8 @@
 {
   "name": "hex-transposition-cipher",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "hexadecimal transposition cipher for shuffle and reverse shuffling hex encoded cipher text",
-  "main": "/lib/index.js",
+  "main": "./index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
