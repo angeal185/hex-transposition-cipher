@@ -1,7 +1,7 @@
 {
   "name": "hex-transposition-cipher",
   "version": "1.0.0",
-  "description": "hexadecimal transposition cipher for shuffling hex encoded cipher text",
+  "description": "hexadecimal transposition cipher for shuffle and reverse shuffling hex encoded cipher text",
   "main": "/lib/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -10,8 +10,15 @@
     "type": "git",
     "url": "git+https://github.com/angeal185/hex-transposition-cipher.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "cipher",
+    "hexadecimal",
+    "transposition-cipher",
+    "shuffle",
+    "encryption",
+    "decryption"
+  ],
+  "author": "ben eaves",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/angeal185/hex-transposition-cipher/issues"

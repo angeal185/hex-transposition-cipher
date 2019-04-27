@@ -1,13 +1,72 @@
-function substitute(text, obj, decode) {
+
+function validHex(str){
+  let regExp = /^[A-Fa-f0-9]*$/;
+  return (typeof str === 'string' && regExp.test(str));
+}
+
+function sub(text, obj, config, cb) {
   try {
-    if(decode) {
+    if(!validHex(text)){
+      return 'invalid hex string'
+    }
+    if(!cb && _.isFunction(config)){
+      cb = config;
+      config = {
+        decode: false,
+        reverse: false
+      }
+    }
+    if(config.decode) {
       obj = _.invert(obj);
     }
-    return text.split('').filter(function(v) {
+
+    if(config.reverse && config.decode){
+      text = text.split('').reverse().join('');
+    }
+
+    text = text.split('').filter(function(v) {
       return obj.hasOwnProperty(v.toLowerCase());
     }).map(function(v) {
       return obj[v.toLowerCase()].toUpperCase();
     }).join('');
+
+    if(config.reverse && !config.decode){
+      text = text.split('').reverse().join('');
+    }
+    cb(text);
+  } catch (err) {
+    if(err){ return console.log(err)}
+  }
+};
+
+function subSync(text, obj, config) {
+  try {
+    if(!validHex(text)){
+      return 'invalid hex string'
+    }
+    if(!config){
+      config.decode = false;
+      config.reverse = false;
+    }
+    if(config.decode) {
+      obj = _.invert(obj);
+    } else {
+      config.decode = false;
+    }
+    if(config.reverse && config.decode){
+      text = text.split('').reverse().join('');
+    }
+
+    text = text.split('').filter(function(v) {
+      return obj.hasOwnProperty(v.toLowerCase());
+    }).map(function(v) {
+      return obj[v.toLowerCase()].toUpperCase();
+    }).join('');
+
+    if(config.reverse && !config.decode){
+      text = text.split('').reverse().join('');
+    }
+    return text;
   } catch (err) {
     if(err){ return console.log(err)}
   }
@@ -109,9 +168,17 @@ $(document).ready(function() {
       // test shuffle hex
       $('#inStr').off().on('keyup', function(){
         let string = str2hex($(this).val());
-        $('#inHex').val(substitute(string, obj));
-        $('#outHex').val(substitute(substitute(string, obj), obj, true));
-        $('#outStr').val(hex2str(substitute(substitute(string, obj), obj, true)));
+        $('#inHex').val(subSync(string, obj, {reverse: false}));
+        $('#outHex').val(subSync(subSync(string, obj, {reverse: false}), obj, {decode:true, reverse: false}));
+        $('#outStr').val(hex2str(subSync(subSync(string, obj, {reverse: false}), obj, {decode:true, reverse: false})));
+
+
+        sub(string, obj, {reverse: true}, function(i){
+          sub(i, obj, {reverse: true, decode: true}, function(i){
+            $('#outHexRev').val(i)
+          })
+          $('#inHexRev').val(i)
+        })
       }).val('test').keyup()
     }
 
