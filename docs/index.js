@@ -41,6 +41,8 @@ function keyGen(obj){
 *** DEMO ONLY ***
 ****************/
 
+_.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+
 function str2hex(str) {
 	let hex = '';
 	for(var i=0;i<str.length;i++) {
@@ -59,50 +61,62 @@ function hex2str(hex) {
 }
 
 // test body
-_.templateSettings.interpolate = /{{([\s\S]+?)}}/g;
+(function(){
+  let inputTpl = _.template('<div class="form-group"><label>{{title}}</label><input id="{{ID}}" type="text" class="form-control"></div>')
 
-let inputTpl = _.template('<div class="form-group"><label>{{title}}</label><input id="{{ID}}" type="text" class="form-control"></div>')
+  let div = $('<div />'),
+  bodyObj = {
+    inStr: 'base string',
+    inHex: 'encrypted hex',
+    outHex: 'decrypted hex',
+    outStr: 'decrypted string'
+  }
 
-let div = $('<div />'),
-bodyObj = {
-  inStr: 'base string',
-  inHex: 'encrypted hex',
-  outHex: 'decrypted hex',
-  outStr: 'decrypted string'
-}
-
-$('body').append(
-  div.clone().addClass('container').append(
-    div.clone().addClass('row').append(
-      div.clone().addClass('col-sm-6 inp').append(
-        $('<h5 />').text('hex transform test')
-      ),
-      div.clone().addClass('col-sm-6').append(
-        $('<pre />').append(
-          $('<code />', {
-            id: 'key'
+  $('body').append(
+    div.clone().addClass('container').append(
+      div.clone().addClass('row').append(
+        div.clone().addClass('col-sm-6 inp').append(
+          $('<h5 />').text('hex transform test')
+        ),
+        div.clone().addClass('col-sm-6').append(
+          $('<pre />').append(
+            $('<code />', {
+              id: 'key'
+            })
+          ),
+          $('<button />', {
+            type: 'button',
+            id: 'reload',
+            class: 'btn btn-outline-dark',
+            text: 'reload'
           })
         )
       )
     )
   )
-)
 
-_.forIn(bodyObj, function(i,e){
-  $('.inp').append(inputTpl({title:i,ID:e}))
-})
+  _.forIn(bodyObj, function(i,e){
+    $('.inp').append(inputTpl({title:i,ID:e}))
+  })
+})()
 
 $(document).ready(function() {
     // test keygen
-  let obj = keyGen();
-  $('#key').text(JSON.stringify(obj, 0, 2));
+    function test(){
+      let obj = keyGen();
+      $('#key').text(JSON.stringify(obj, 0, 2));
 
-  // test shuffle hex
-  $('#inStr').on('keyup', function(){
-    let string = str2hex($(this).val());
-    $('#inHex').val(substitute(string, obj));
-    $('#outHex').val(substitute(substitute(string, obj), obj, true));
-    $('#outStr').val(hex2str(substitute(substitute(string, obj), obj, true)));
-  })
+      // test shuffle hex
+      $('#inStr').off().on('keyup', function(){
+        let string = str2hex($(this).val());
+        $('#inHex').val(substitute(string, obj));
+        $('#outHex').val(substitute(substitute(string, obj), obj, true));
+        $('#outStr').val(hex2str(substitute(substitute(string, obj), obj, true)));
+      }).val('test').keyup()
+    }
 
+    $('#reload').on('click', function(){
+      test();
+    })
+    test();
 });
