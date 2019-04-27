@@ -35,7 +35,7 @@ function sub(text, obj, config, cb) {
     }
     cb(text);
   } catch (err) {
-    if(err){ return console.log(err)}
+    if(err){return console.log(err)}
   }
 };
 
@@ -68,7 +68,7 @@ function subSync(text, obj, config) {
     }
     return text;
   } catch (err) {
-    if(err){ return console.log(err)}
+    if(err){return console.log(err)}
   }
 };
 
@@ -91,7 +91,7 @@ function keyGen(obj){
     })
     return cc;
   } catch (err) {
-    if(err){ return console.log(err)}
+    if(err){return console.log(err)}
   }
 }
 
@@ -159,6 +159,7 @@ function hex2str(hex) {
   _.forIn(bodyObj, function(i,e){
     $('.inp').append(inputTpl({title:i,ID:e}))
   })
+
 })()
 
 $(document).ready(function() {
@@ -173,7 +174,6 @@ $(document).ready(function() {
         $('#inHex').val(subSync(string, obj, {reverse: false}));
         $('#outHex').val(subSync(subSync(string, obj, {reverse: false}), obj, {decode:true, reverse: false}));
         $('#outStr').val(hex2str(subSync(subSync(string, obj, {reverse: false}), obj, {decode:true, reverse: false})));
-
 
         sub(string, obj, {reverse: true}, function(i){
           sub(i, obj, {reverse: true, decode: true}, function(i){

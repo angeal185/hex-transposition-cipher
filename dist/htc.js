@@ -7,7 +7,7 @@ function validHex(str){
 function sub(text, obj, config, cb) {
   try {
     if(!validHex(text)){
-      return 'invalid hex string'
+      return 'invalid hex string';
     }
     if(!cb && _.isFunction(config)){
       cb = config;
@@ -35,7 +35,7 @@ function sub(text, obj, config, cb) {
     }
     cb(text);
   } catch (err) {
-    if(err){ return console.log(err)}
+    if(err){return console.log(err)}
   }
 };
 
@@ -68,7 +68,7 @@ function subSync(text, obj, config) {
     }
     return text;
   } catch (err) {
-    if(err){ return console.log(err)}
+    if(err){return console.log(err)}
   }
 };
 
@@ -91,6 +91,6 @@ function keyGen(obj){
     })
     return cc;
   } catch (err) {
-    if(err){ return console.log(err)}
+    if(err){return console.log(err)}
   }
 }
