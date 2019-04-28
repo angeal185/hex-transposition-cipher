@@ -60,16 +60,16 @@ htc.keyGen(function(i){
  */
 
 let res = htc.subSync('74657374', key, {decode:false, reverse: false});
-console.log(res) // returns encrypted hex string
+console.log(res); // returns encrypted hex string
 
 res = htc.subSync('74657374', key, {decode:true, reverse: false});
-console.log(res) // returns decrypted hex string
+console.log(res); // returns decrypted hex string
 
 res = htc.subSync('74657374', key, {decode:false, reverse: true});
-console.log(res) // returns encrypted hex string and reverses the output of the string
+console.log(res); // returns encrypted hex string and reverses the output of the string
 
 res = htc.subSync('74657374', key, {decode:true, reverse: true});
-console.log(res) // returns decrypted hex string that has been reversed
+console.log(res); // returns decrypted hex string that has been reversed
 
 /**
  * htc.sub(hex, key, config, callback)
@@ -80,7 +80,7 @@ console.log(res) // returns decrypted hex string that has been reversed
  */
 
 htc.sub(res, key, {decode:true, reverse: false}, function(i){
-    console.log(i) // returns decrypted hex string
+    console.log(i); // returns decrypted hex string
 })
 
 ...
