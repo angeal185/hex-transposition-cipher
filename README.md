@@ -1,6 +1,8 @@
 # hex-transposition-cipher
 hexadecimal transposition cipher for shuffle and reverse shuffling hex encoded cipher text for nodejs and the browser.
 
+Adds an extra layer of protection to your already encrypted code's hex output by essentially turning it into nothing but valid hex.
+
 demo: https://angeal185.github.io/hex-transposition-cipher/
 ### Installation
 
@@ -11,7 +13,7 @@ $ npm install hex-transposition-cipher
 ```
 
 #### nodejs
-ensure jquery is installed.
+
 ```sh
 $ const htc = require('hex-transposition-cipher');
 ```
@@ -57,9 +59,17 @@ htc.keyGen(function(i){
  * @param {object} config ~ optional options
  */
 
-let res = htc.subSync('74657374', key, {decode:false, reverse: false})
+let res = htc.subSync('74657374', key, {decode:false, reverse: false});
 console.log(res) // returns encrypted hex string
 
+res = htc.subSync('74657374', key, {decode:true, reverse: false});
+console.log(res) // returns decrypted hex string
+
+res = htc.subSync('74657374', key, {decode:false, reverse: true});
+console.log(res) // returns encrypted hex string and reverses the output of the string
+
+res = htc.subSync('74657374', key, {decode:true, reverse: true});
+console.log(res) // returns decrypted hex string that has been reversed
 
 /**
  * htc.sub(hex, key, config, callback)
@@ -72,5 +82,7 @@ console.log(res) // returns encrypted hex string
 htc.sub(res, key, {decode:true, reverse: false}, function(i){
     console.log(i) // returns decrypted hex string
 })
+
+...
 
 ```

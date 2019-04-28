@@ -1,6 +1,6 @@
 {
   "name": "hex-transposition-cipher",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "hexadecimal transposition cipher for shuffle and reverse shuffling hex encoded cipher text",
   "main": "./index.js",
   "scripts": {
